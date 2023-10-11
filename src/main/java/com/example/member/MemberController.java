@@ -6,7 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller // 컨트롤러임을 선언
 @RequiredArgsConstructor // final이 선언된 모든 필드를 인자값으로 하는 생성자를 대신 생성해줌
@@ -40,6 +43,15 @@ public class MemberController {
     model.addAttribute("member", memberRepo.findById(id).orElse(null));
     model.addAttribute("total", memberRepo.findAll().spliterator().getExactSizeIfKnown());
     return "member/member_info";
+  }
+
+  @PostMapping("/register")
+  public ModelAndView registerMember(@RequestParam String username, @RequestParam String email) {
+    System.out.println("회원 가입: " + username + ", 이메일: " + email);
+    memberRepo.save(new Member((int) memberRepo.findAll().spliterator().getExactSizeIfKnown() + 1, username, email));
+
+
+    return new ModelAndView("redirect:/member/list");
   }
 }
 
