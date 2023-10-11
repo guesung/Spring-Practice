@@ -4,6 +4,7 @@ package com.example.member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -15,7 +16,8 @@ public class MemberController {
   private final MemberRepository memberRepo;
 
   @RequestMapping("/list")
-  public String getMemberList() {
+  public String getMemberList(Model model) {
+    model.addAttribute("members", memberRepo.findAll());
     return "member/member_list";
   }
 
@@ -25,7 +27,8 @@ public class MemberController {
   }
 
   @RequestMapping("/{id}")
-  public String getMemberById(@PathVariable int id) {
+  public String getMemberById(@PathVariable int id, Model model) {
+    model.addAttribute("member", memberRepo.findById(id).orElse(null));
     return "member/member_info";
   }
 }

@@ -20,7 +20,6 @@ public class AppConfig implements WebMvcConfigurer {
     MemberRepository repository = new MemberRepository() {
       @Override
       public void init() {
-        // 샘플 데이터 등록
         memberMap.put(1, new Member(1, "홍길동", "hong@korea.com"));
         memberMap.put(2, new Member(2, "김철수", "kcs@google.com"));
         memberMap.put(3, new Member(3, "김영희", "kyh@naver.com"));
