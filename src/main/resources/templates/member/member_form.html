@@ -14,7 +14,8 @@
         <div aria-label="Basic example" class="btn-group" role="group" style="width: 15rem">
             <a class="btn btn-outline-primary" href="/member/menu" type="button">메뉴</a>
             <a class="btn btn-success" href="/member/form" type="button">회원가입</a>
-            <a class="btn btn-outline-primary" href="/member/list" type="button">회원 목록(3)</a>
+            <a class="btn btn-outline-primary" href="/member/list" th:text="'회원 목록(' + ${total} + ')'" type="button">회원
+                목록(3)</a>
         </div>
         <hr/>
         <h1>회원 가입 양식</h1>

@@ -17,24 +17,28 @@ public class MemberController {
 
 
   @RequestMapping("/menu")
-  public String getMenu() {
+  public String getMenu(Model model) {
+    model.addAttribute("total", memberRepo.findAll().spliterator().getExactSizeIfKnown());
     return "member/base";
   }
 
   @RequestMapping("/list")
   public String getMemberList(Model model) {
     model.addAttribute("members", memberRepo.findAll());
+    model.addAttribute("total", memberRepo.findAll().spliterator().getExactSizeIfKnown());
     return "member/member_list";
   }
 
   @RequestMapping("/form")
-  public String addMember() {
+  public String addMember(Model model) {
+    model.addAttribute("total", memberRepo.findAll().spliterator().getExactSizeIfKnown());
     return "member/member_form";
   }
 
   @RequestMapping("/{id}")
   public String getMemberById(@PathVariable int id, Model model) {
     model.addAttribute("member", memberRepo.findById(id).orElse(null));
+    model.addAttribute("total", memberRepo.findAll().spliterator().getExactSizeIfKnown());
     return "member/member_info";
   }
 }
