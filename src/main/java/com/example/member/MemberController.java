@@ -4,6 +4,7 @@ package com.example.member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller // 컨트롤러임을 선언
@@ -14,8 +15,18 @@ public class MemberController {
   private final MemberRepository memberRepo;
 
   @RequestMapping("/list")
-  public String test2() {
-    return "member/member_list"; // 경로 수정: "/" 제거
+  public String getMemberList() {
+    return "member/member_list";
+  }
+
+  @RequestMapping("/form")
+  public String addMember() {
+    return "member/member_form";
+  }
+
+  @RequestMapping("/{id}")
+  public String getMemberById(@PathVariable int id) {
+    return "member/member_info";
   }
 }
 
