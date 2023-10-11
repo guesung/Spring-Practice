@@ -15,6 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MemberController {
   private final MemberRepository memberRepo;
 
+
+  @RequestMapping("/menu")
+  public String getMenu() {
+    return "member/base";
+  }
+
   @RequestMapping("/list")
   public String getMemberList(Model model) {
     model.addAttribute("members", memberRepo.findAll());
