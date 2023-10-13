@@ -8,12 +8,17 @@
 <div>
     <main>
         <ul class="list-group">
-            <li class="list-group-item" th:each="member : ${members}">
+            <li class="list-group-item d-flex justify-content-between" th:each="member : ${members}">
                 <a class="list-group-item-action" style="text-decoration: none" th:href="${member.getId()}"
                    th:text="${member.getName()}">Name</a>
+                <form th:action="@{/member/delete/{memberId}(memberId=${member.getId()})}"
+                      th:method="post">
+                    <button type="submit">X</button>
+                </form>
             </li>
         </ul>
     </main>
 </div>
+
 </body>
 </html>

@@ -41,10 +41,13 @@ public class MemberController {
 
   @PostMapping("/register")
   public ModelAndView registerMember(@RequestParam String username, @RequestParam String email) {
-    System.out.println("회원 가입: " + username + ", 이메일: " + email);
     memberRepo.save(new Member((int) memberRepo.findAll().spliterator().getExactSizeIfKnown() + 1, username, email));
+    return new ModelAndView("redirect:/member/list");
+  }
 
-
+  @RequestMapping("/delete/{id}")
+  public ModelAndView deleteMember(@PathVariable int id) {
+    memberRepo.delete(id);
     return new ModelAndView("redirect:/member/list");
   }
 }
