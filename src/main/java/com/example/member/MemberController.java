@@ -19,12 +19,6 @@ public class MemberController {
   private final MemberRepository memberRepo;
 
 
-  @RequestMapping("/menu")
-  public String getMenu(Model model) {
-    model.addAttribute("total", memberRepo.findAll().spliterator().getExactSizeIfKnown());
-    return "member/base";
-  }
-
   @RequestMapping("/list")
   public String getMemberList(Model model) {
     model.addAttribute("members", memberRepo.findAll());
