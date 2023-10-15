@@ -16,8 +16,4 @@ public interface MemberRepository {
   Optional<Member> delete(Integer id);
 
   Optional<Member> save(Member member);
-
-  default boolean existsById(Integer id) {
-    return memberMap.containsKey(id);
-  }
 }

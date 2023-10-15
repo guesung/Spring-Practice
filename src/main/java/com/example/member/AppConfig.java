@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Optional;
 
-@Configuration
+@Configuration // 이 클래스는 설정 파일이다.
 public class AppConfig implements WebMvcConfigurer {
 
   @Override
@@ -44,6 +44,7 @@ public class AppConfig implements WebMvcConfigurer {
       public Optional<Member> save(Member member) {
         return Optional.ofNullable(memberMap.put(member.getId(), member));
       }
+
     };
     repository.init();
     return repository;
