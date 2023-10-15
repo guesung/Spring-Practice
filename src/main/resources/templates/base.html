@@ -9,7 +9,7 @@
 <body>
 <div class="card position-absolute top-50 p-5 start-50 translate-middle shadow-lg p-3 mb-5 bg-body-tertiary rounded"
      style="width: 45rem;">
-    <div aria-label="Basic example" class="btn-group" role="group" style="width: 20rem">
+    <nav aria-label="Basic example" class="btn-group" role="group" style="width: 20rem" th:if="${path != 'error'}">
         <a class="btn" href="/member/form" th:classappend="${path=='menu'?'btn-success':'btn-outline-primary'}"
            type="button">메뉴</a>
         <a class="btn" href="/member/form" th:classappend="${path=='form'?'btn-success':'btn-outline-primary'}"
@@ -17,9 +17,8 @@
         <a class="btn" href="/member/list" th:classappend="${path=='list'?'btn-success':'btn-outline-primary'}"
            th:text="'회원 목록(' + ${total} + ')'" type="button">회원
             목록(3)</a>
-
-    </div>
-    <hr/>
+    </nav>
+    <hr th:if="${path != 'error'}"/>
     <h1 th:text="${title}">타이틀</h1>
     <hr/>
     <main th:replace="${main}">메인</main>
