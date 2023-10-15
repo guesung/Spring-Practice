@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -21,7 +20,6 @@ import java.util.List;
 @RequestMapping("/member") // 기본적인 URL 매핑
 public class MemberController {
   private final MemberRepository memberRepo;
-  private Integer accumulatedNumber = 3;
 
   @ExceptionHandler(ClassNotFoundException.class)
   public String handleNotFoundException(Model model) {
@@ -54,18 +52,17 @@ public class MemberController {
   }
 
   @PostMapping("/register")
-  public ModelAndView registerMember(@Valid Member member, Errors errors, RedirectAttributes redirectAttributes) {
+  public String registerMember(@Valid Member member, Errors errors, RedirectAttributes redirectAttributes) {
     if (errors.hasErrors()) {
       List<FieldError> list = errors.getFieldErrors();
       list.forEach(e -> log.error(e.getDefaultMessage()));
       redirectAttributes.addFlashAttribute("username", member.getUsername());
       redirectAttributes.addFlashAttribute("email", member.getEmail());
       redirectAttributes.addFlashAttribute("isError", true);
-      return new ModelAndView("redirect:/member/form");
+      return "redirect:/member/form";
     }
-    member.setId(++accumulatedNumber);
     memberRepo.save(member);
-    return new ModelAndView("redirect:/member/list");
+    return "redirect:/member/list";
   }
 
   @RequestMapping("/delete/{id}")

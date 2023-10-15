@@ -42,7 +42,9 @@ public class AppConfig implements WebMvcConfigurer {
 
       @Override
       public Optional<Member> save(Member member) {
-        return Optional.ofNullable(memberMap.put(member.getId(), member));
+        member.setId((int) (Math.random() * 89999) + 10000);
+        return Optional.ofNullable(
+            memberMap.put(member.getId(), member));
       }
 
     };
