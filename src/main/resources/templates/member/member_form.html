@@ -8,13 +8,21 @@
 <div>
     <main>
         <form method="post" th:action="@{/member/register}">
-            <input aria-describedby="addon-wrapping" aria-label="Username" class="form-control" name="username"
-                   placeholder="이름을 입력 하세요" type="text">
+            <input aria-describedby="addon-wrapping" aria-label="Username" class="form-control" id="username"
+                   name="username" placeholder="이름을 입력 하세요" th:value="${username}" type="text">
             <br/>
             <input aria-describedby="addon-wrapping" aria-label="Email" class="form-control" name="email"
-                   placeholder="이메일을 입력 하세요" type="text">
+                   placeholder="이메일을 입력 하세요" th:value="${email}" type="text">
             <br/>
+
             <button class="btn btn-primary" style="width: 8rem" type="submit">회원 가입</button>
+            <div style="height:1rem"></div>
+            <div class="card p-2" style="background-color: yellow" th:if="${isError}">
+                <ul>
+                    <li>이메일 형식을 따라야 합니다!</li>
+                    <li>이름은 반드시 입력 해야 합니다!!</li>
+                </ul>
+            </div>
         </form>
     </main>
 </div>

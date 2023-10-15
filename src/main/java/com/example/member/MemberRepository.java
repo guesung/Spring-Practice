@@ -20,4 +20,8 @@ public interface MemberRepository {
   default boolean existsById(Integer id) {
     return memberMap.containsKey(id);
   }
+
+  default long count() {
+    return memberMap.size();
+  }
 }

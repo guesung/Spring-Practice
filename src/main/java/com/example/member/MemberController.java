@@ -8,8 +8,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller // 컨트롤러임을 선언
 @RequiredArgsConstructor // final이 선언된 모든 필드를 인자값으로 하는 생성자를 대신 생성해줌
@@ -20,6 +27,7 @@ public class MemberController {
 
   @ExceptionHandler(ClassNotFoundException.class)
   public String handleNotFoundException(Model model) {
+
     model.addAttribute("status", HttpStatus.NOT_FOUND.value());
     model.addAttribute("error", "Not Found");
     model.addAttribute("message", "The requested resource was not found");
@@ -47,12 +55,17 @@ public class MemberController {
   }
 
   @PostMapping("/register")
-  public ModelAndView registerMember(@RequestParam String username, @RequestParam String email, @Valid Member member, Errors errors, Model model) {
-//    if (errors.hasErrors()) {
-////      model.addAttribute("total", memberRepo.findAll().spliterator().getExactSizeIfKnown());
-//      return new ModelAndView("member/member_form");
-//    }
-    memberRepo.save(new Member((int) memberRepo.findAll().spliterator().getExactSizeIfKnown() + 1, username, email));
+  public ModelAndView registerMember(@Valid Member member, Errors errors, Model model, RedirectAttributes redirectAttributes) {
+    if (errors.hasErrors()) {
+      List<FieldError> list = errors.getFieldErrors();
+      list.forEach(e -> log.error(e.getDefaultMessage()));
+      redirectAttributes.addFlashAttribute("username", member.getUsername());
+      redirectAttributes.addFlashAttribute("email", member.getEmail());
+      redirectAttributes.addFlashAttribute("isError", true);
+      return new ModelAndView("redirect:/member/form");
+    }
+    member.setId((int) memberRepo.count() + 1);
+    memberRepo.save(member);
     return new ModelAndView("redirect:/member/list");
   }
 
