@@ -5,15 +5,19 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface MemberRepository {
-    Map<Integer, Member> memberMap = new HashMap<>();
+  Map<Integer, Member> memberMap = new HashMap<>();
 
-    void init();
+  void init();
 
-    Optional<Member> findById(Integer id);
+  Optional<Member> findById(Integer id);
 
-    Iterable<Member> findAll();
+  Iterable<Member> findAll();
 
-    Optional<Member> delete(Integer id);
+  Optional<Member> delete(Integer id);
 
-    Optional<Member> save(Member member);
+  Optional<Member> save(Member member);
+
+  default boolean existsById(Integer id) {
+    return memberMap.containsKey(id);
+  }
 }

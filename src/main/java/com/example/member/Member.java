@@ -1,5 +1,7 @@
 package com.example.member;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Getter // getter 메소드 자동 생성
@@ -8,7 +10,11 @@ import lombok.*;
 @ToString // toString 메소드 자동 생성
 @NoArgsConstructor // 기본 생성자
 public class Member {
-    private Integer id;
-    private String name;
-    private String email;
+  private Integer id;
+
+  @NotBlank(message = "이름을 입력해주세요.")
+  private String name;
+  @NotBlank(message = "이메일을 입력해주세요.")
+  @Email(message = "이메일 형식이 올바르지 않습니다.")
+  private String email;
 }

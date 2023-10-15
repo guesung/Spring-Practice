@@ -1,14 +1,14 @@
 package com.example.member;
 
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller // 컨트롤러임을 선언
@@ -18,6 +18,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class MemberController {
   private final MemberRepository memberRepo;
 
+  @ExceptionHandler(ClassNotFoundException.class)
+  public String handleNotFoundException(Model model) {
+    model.addAttribute("status", HttpStatus.NOT_FOUND.value());
+    model.addAttribute("error", "Not Found");
+    model.addAttribute("message", "The requested resource was not found");
+    return "error";
+  }
 
   @RequestMapping("/list")
   public String getMemberList(Model model) {
@@ -40,13 +47,18 @@ public class MemberController {
   }
 
   @PostMapping("/register")
-  public ModelAndView registerMember(@RequestParam String username, @RequestParam String email) {
+  public ModelAndView registerMember(@RequestParam String username, @RequestParam String email, @Valid Member member, Errors errors, Model model) {
+//    if (errors.hasErrors()) {
+////      model.addAttribute("total", memberRepo.findAll().spliterator().getExactSizeIfKnown());
+//      return new ModelAndView("member/member_form");
+//    }
     memberRepo.save(new Member((int) memberRepo.findAll().spliterator().getExactSizeIfKnown() + 1, username, email));
     return new ModelAndView("redirect:/member/list");
   }
 
   @RequestMapping("/delete/{id}")
   public ModelAndView deleteMember(@PathVariable int id) {
+    if (!memberRepo.existsById(id)) throw new RuntimeException("존재하는 아이디가 없습니다.");
     memberRepo.delete(id);
     return new ModelAndView("redirect:/member/list");
   }
