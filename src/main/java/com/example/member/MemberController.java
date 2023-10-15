@@ -24,6 +24,7 @@ import java.util.List;
 @RequestMapping("/member") // 기본적인 URL 매핑
 public class MemberController {
   private final MemberRepository memberRepo;
+  private Integer accumulatedNumber = 3;
 
   @ExceptionHandler(ClassNotFoundException.class)
   public String handleNotFoundException(Model model) {
@@ -55,7 +56,7 @@ public class MemberController {
   }
 
   @PostMapping("/register")
-  public ModelAndView registerMember(@Valid Member member, Errors errors, Model model, RedirectAttributes redirectAttributes) {
+  public ModelAndView registerMember(@Valid Member member, Errors errors, RedirectAttributes redirectAttributes) {
     if (errors.hasErrors()) {
       List<FieldError> list = errors.getFieldErrors();
       list.forEach(e -> log.error(e.getDefaultMessage()));
@@ -64,7 +65,7 @@ public class MemberController {
       redirectAttributes.addFlashAttribute("isError", true);
       return new ModelAndView("redirect:/member/form");
     }
-    member.setId((int) memberRepo.count() + 1);
+    member.setId(++accumulatedNumber);
     memberRepo.save(member);
     return new ModelAndView("redirect:/member/list");
   }
