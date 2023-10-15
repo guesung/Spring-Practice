@@ -36,18 +36,18 @@ public class MemberController {
     model.addAttribute("total", memberRepo.findAll().spliterator().getExactSizeIfKnown());
   }
 
-  @RequestMapping("/list")
+  @GetMapping("/list")
   public String getMemberList(Model model) {
     model.addAttribute("members", memberRepo.findAll());
     return "member/member_list";
   }
 
-  @RequestMapping("/form")
+  @GetMapping("/form")
   public String addMember(Model model) {
     return "member/member_form";
   }
 
-  @RequestMapping("/{id}")
+  @GetMapping("/{id}")
   public String getMemberById(@PathVariable int id, Model model) {
     model.addAttribute("member", memberRepo.findById(id).orElse(null));
     return "member/member_info";
@@ -69,9 +69,9 @@ public class MemberController {
   }
 
   @RequestMapping("/delete/{id}")
-  public ModelAndView deleteMember(@PathVariable int id) {
+  public String deleteMember(@PathVariable int id) {
     if (memberRepo.delete(id).isEmpty()) throw new RuntimeException("존재하는 아이디가 없습니다.");
-    return new ModelAndView("redirect:/member/list");
+    return "redirect:/member/list";
   }
 }
 
