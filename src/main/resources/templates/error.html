@@ -6,7 +6,7 @@
 <body>
 <main>
     <div class="card p-2" style="background-color: pink">
-        <p>요청 경로: /member/list/df</p>
+        <p th:text="'요청 경로: '+${path}">요청 경로</p>
         <p th:text="'에러 코드: '+${status}">에러 코드</p>
         <p th:text="'에러 메시지: '+${message}">에러 메시지</p>
     </div>
