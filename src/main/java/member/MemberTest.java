@@ -14,6 +14,10 @@ public class MemberTest implements ApplicationRunner {
 
   @Override
   public void run(ApplicationArguments args) throws Exception {
-    System.out.println("test");
+    System.out.println("Text 시작");
+
+    for (Member m : memberRepository.findAll()) {
+      System.out.println(m.getUsername());
+    }
   }
 }
