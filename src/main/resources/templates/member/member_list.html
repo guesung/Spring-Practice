@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko" th:insert="~{base::layout('회원 목록','list',~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 가입 양식</title>
+</head>
+<body>
+<div>
+    <main>
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between" th:each="member : ${members}">
+                <a class="list-group-item-action" style="text-decoration: none" th:href="${member.getId()}"
+                   th:text="${member.getUsername()}">Name</a>
+                <form th:action="@{/member/delete/{memberId}(memberId=${member.getId()})}"
+                      th:method="post">
+                    <button type="submit">X</button>
+                </form>
+            </li>
+        </ul>
+    </main>
+</div>
+
+</body>
+</html>
