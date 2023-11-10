@@ -38,7 +38,7 @@ public class MemberController {
   }
 
   @GetMapping("{id}")
-  public String getMemberById(@PathVariable int id, Model model) {
+  public String getMemberById(@PathVariable long id, Model model) {
     model.addAttribute("member", memberRepo.findById(id).orElse(null));
     return "member/member_info";
   }
@@ -58,8 +58,8 @@ public class MemberController {
   }
 
   @RequestMapping("delete/{id}")
-  public String deleteMember(@PathVariable int id) {
-    if (memberRepo.delete(id).isEmpty()) throw new RuntimeException("존재하는 아이디가 없습니다.");
+  public String deleteMember(@PathVariable long id) {
+    memberRepo.deleteById(id);
     return "redirect:/member/list";
   }
 }
