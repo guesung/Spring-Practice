@@ -17,7 +17,7 @@ public class MemberTest implements ApplicationRunner {
     System.out.println("Text 시작");
 
     for (Member m : memberRepository.findAll()) {
-      System.out.println(m.getUsername());
+      System.out.println(m);
     }
   }
 }
