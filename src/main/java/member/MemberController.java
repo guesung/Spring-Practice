@@ -1,4 +1,4 @@
-package com.member;
+package member;
 
 
 import jakarta.validation.Valid;
