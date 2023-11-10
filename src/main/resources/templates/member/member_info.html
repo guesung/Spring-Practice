@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko" th:insert="~{base::layout('회원 상세 정보','info',~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 가입 양식</title>
+</head>
+<body>
+<div>
+    <main>
+        <div class="card bg-light mb-3" style="max-width: 18rem;">
+            <div class="card-header">회원 정보 카드</div>
+            <div class="card-body">
+                <h5 class="card-title" th:text="${member.getUsername()}">이름</h5>
+                <p class="card-text" th:text="${member.getEmail()}">이메일</p>
+            </div>
+        </div>
+
+    </main>
+</div>
+</body>
+</html>
