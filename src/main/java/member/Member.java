@@ -9,25 +9,20 @@ import lombok.NoArgsConstructor;
 @Data
 public class Member {
 
-  @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
-  @JoinColumn(name = "member_info_id")
-  public MemberInfo memberInfo; // Link to the MemberInfo entity
+  //  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
+  @OneToOne
+  @JoinColumn(name = "member_info_id")
+  private MemberInfo memberInfo; // Link to the MemberInfo entity
+
   @Column(nullable = false, unique = true)
   private String username;
+
   @Column(nullable = false, unique = true)
   private String email;
 
-  public Member(String username, String email) {
-    this.username = username;
-    this.email = email;
-  }
 
-  public void setMemberInfo(MemberInfo memberInfo) {
-    this.memberInfo = memberInfo;
-    memberInfo.setMember(this);
-  }
 }
 
