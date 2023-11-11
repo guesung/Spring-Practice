@@ -59,6 +59,7 @@ public class MemberController {
       return "redirect:/member/form";
     }
     memberRepo.save(member);
+    memberInfoRepo.save(memberInfo);
     return "redirect:/member/list";
   }
 

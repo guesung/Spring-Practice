@@ -1,13 +1,3 @@
--- insert into member(id, username, email)
--- values (1, '박규성', 'gueit214@naver.com');
---
--- insert into member(id, username, email)
--- values (2, '정현진', 'hyunjin1105@naver.com');
---
--- insert into member(id, username, email)
--- values (3, '강규혁', 'guehyeok@naver.com');
-
-
 -- Member 테이블에 데이터 삽입
 INSERT INTO member (member_id, username, email)
 VALUES (1, 'username1', 'email1@example.com');

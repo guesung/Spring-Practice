@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Member {
-
   @Id
   @Column(name = "member_id", nullable = false, unique = true)
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,7 +22,5 @@ public class Member {
 
   @Column(nullable = false, unique = true)
   private String email;
-
-
 }
 
