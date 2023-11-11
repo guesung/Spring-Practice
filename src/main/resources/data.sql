@@ -9,9 +9,9 @@
 
 
 -- Member 테이블에 데이터 삽입
-INSERT INTO member (id, username, email)
+INSERT INTO member (member_id, username, email)
 VALUES (1, 'username1', 'email1@example.com');
-INSERT INTO member (id, username, email)
+INSERT INTO member (member_id, username, email)
 VALUES (2, 'username2', 'email2@example.com');
 
 -- MemberInfo 테이블에 데이터 삽입

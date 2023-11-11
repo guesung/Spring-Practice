@@ -11,6 +11,7 @@ public class Member {
 
   //  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
+  @Column(name = "member_id", nullable = false, unique = true)
   private Long id;
 
   @OneToOne

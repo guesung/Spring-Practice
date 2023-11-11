@@ -1,9 +1,6 @@
 package member;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class MemberInfo {
   @Id
-  private Long member_info_id;
+  @Column(name = "member_info_id", nullable = false, unique = true)
+  private Long id;
 
   private String phoneNumber; // A unique number for the member
 
