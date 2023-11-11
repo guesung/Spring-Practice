@@ -12,6 +12,9 @@ public class MemberInfo {
   @Column(name = "member_info_id", nullable = false, unique = true)
   private Long id;
 
+  @OneToOne(mappedBy = "memberInfo")
+  private Member member; // Link to the Member entity
+
   private String phoneNumber; // A unique number for the member
 
   @Enumerated(EnumType.STRING)

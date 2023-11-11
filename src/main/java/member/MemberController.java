@@ -19,6 +19,7 @@ import java.util.List;
 @RequestMapping("member") // 기본적인 URL 매핑
 public class MemberController {
   private final MemberRepository memberRepo;
+  private final MemberInfoRepository memberInfoRepo;
 
 
   @ModelAttribute
@@ -40,6 +41,8 @@ public class MemberController {
   @GetMapping("{id}")
   public String getMemberById(@PathVariable long id, Model model) {
     model.addAttribute("member", memberRepo.findById(id).orElse(null));
+    model.addAttribute("memberInfo", memberInfoRepo.findById(id).orElse(null));
+
     return "member/member_info";
   }
 

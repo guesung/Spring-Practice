@@ -15,7 +15,7 @@ public class Member {
   private Long id;
 
   @OneToOne
-  @JoinColumn(name = "member_info_id")
+  @JoinColumn(name = "id")
   private MemberInfo memberInfo; // Link to the MemberInfo entity
 
   @Column(nullable = false, unique = true)

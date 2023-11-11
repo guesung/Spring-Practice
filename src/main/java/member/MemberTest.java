@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 @Transactional
 public class MemberTest implements ApplicationRunner {
   private final MemberRepository memberRepository;
+  private final MemberInfoRepository memberInfoRepository;
 
   @Override
   public void run(ApplicationArguments args) throws Exception {
@@ -18,6 +19,9 @@ public class MemberTest implements ApplicationRunner {
 
     for (Member m : memberRepository.findAll()) {
       System.out.println(m);
+    }
+    for (MemberInfo ma : memberInfoRepository.findAll()) {
+      System.out.println(ma);
     }
   }
 }
