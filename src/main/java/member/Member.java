@@ -1,16 +1,12 @@
 package member;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
 public class Member {
 
   @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)

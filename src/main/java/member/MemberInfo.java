@@ -1,35 +1,39 @@
 package member;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
 public class MemberInfo {
 
   @Id
-  private Long id; // This assumes a shared primary key with the Member entity
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-  @Column(nullable = false, unique = true)
-  private String number; // A unique number for the member
+  private String phoneNumber; // A unique number for the member
 
-  @Column(nullable = false)
-  private String job; // The job title or occupation of the member
-
+  @Enumerated(EnumType.STRING)
+  private Job job;
   @OneToOne
   @MapsId
   @JoinColumn(name = "id")
   private Member member; // Links back to the Member entity
 
-  public MemberInfo(String number, String job, Member member) {
-    this.number = number;
+
+  public MemberInfo(String phoneNumber, Job job, Member member) {
+    this.phoneNumber = phoneNumber;
     this.job = job;
     this.member = member;
+  }
+
+  public enum Job {
+    DEVELOPER,
+    TEACHER,
+    DOCTOR,
+    ENGINEER
+    // 다른 직업들을 여기에 추가할 수 있습니다.
   }
 }
