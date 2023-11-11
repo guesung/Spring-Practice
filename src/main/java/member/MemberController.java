@@ -47,12 +47,14 @@ public class MemberController {
   }
 
   @PostMapping("register")
-  public String registerMember(@Valid Member member, Errors errors, RedirectAttributes redirectAttributes) {
+  public String registerMember(@Valid Member member, @Valid MemberInfo memberInfo, Errors errors, RedirectAttributes redirectAttributes) {
     if (errors.hasErrors()) {
       List<FieldError> list = errors.getFieldErrors();
       list.forEach(e -> log.error(e.getDefaultMessage()));
       redirectAttributes.addFlashAttribute("username", member.getUsername());
       redirectAttributes.addFlashAttribute("email", member.getEmail());
+      redirectAttributes.addFlashAttribute("phoneNumber", memberInfo.getPhoneNumber());
+      redirectAttributes.addFlashAttribute("job", memberInfo.getJob());
       redirectAttributes.addFlashAttribute("isError", true);
       return "redirect:/member/form";
     }

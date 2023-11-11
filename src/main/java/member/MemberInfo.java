@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class MemberInfo {
   @Id
-  @Column(name = "member_info_id", nullable = false, unique = true)
+  @Column(name = "member_info_id")
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
   @OneToOne(mappedBy = "memberInfo")
