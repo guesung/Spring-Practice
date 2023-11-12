@@ -1,6 +1,7 @@
 package member;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ public class MemberInfo {
   @OneToOne(mappedBy = "memberInfo")
   private Member member; // Link to the Member entity
 
+  @NotBlank(message = "휴대폰 번호를 입력해주세요.")
   private String phoneNumber; // A unique number for the member
 
   @Enumerated(EnumType.STRING)
@@ -26,6 +28,6 @@ public class MemberInfo {
     기획자,
     마케터,
     기타
-    
+
   }
 }
