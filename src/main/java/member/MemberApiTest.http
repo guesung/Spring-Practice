@@ -13,17 +13,19 @@ POST http://localhost:8080/api/member
 Content-Type: application/json
 
 {
-  "id": 0,
-  "name": "황희정2",
-  "email": "hwgachon.ac.kr"
+  "username": "황희정2",
+  "email": "hwgachon.ac.kr",
+  "phoneNumber": "010-1234-5678",
+  "job": "DEVELOPER"
 }
 
 ### 회원 수정
-PUT http://localhost:8080/api/member
+PUT http://localhost:8080/api/member/1
 Content-Type: application/json
 
 {
-  "id": 110121,
-  "name": "수정이름",
-  "email": "update@update.com"
+  "username": "수정이름",
+  "email": "update@update.com",
+  "phoneNumber": "010-1234-5678",
+  "job": "DEVELOPER"
 }

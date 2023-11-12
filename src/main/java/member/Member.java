@@ -10,11 +10,10 @@ import lombok.NoArgsConstructor;
 public class Member {
   @Id
   @Column(name = "member_id", nullable = false, unique = true)
-  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
   @OneToOne
-  @JoinColumn(name = "id")
+  @JoinColumn(name = "member_info_id")
   private MemberInfo memberInfo;
 
   @Column(nullable = false, unique = true)

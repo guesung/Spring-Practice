@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 public class MemberInfo {
   @Id
   @Column(name = "member_info_id")
-  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
   @OneToOne(mappedBy = "memberInfo")
