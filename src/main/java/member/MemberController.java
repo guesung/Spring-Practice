@@ -47,19 +47,6 @@ public class MemberController {
     return "member/member_info";
   }
 
-  //  @PostMapping("register")
-//  public String registerMember(@Valid Member member, @Valid MemberInfo memberInfo, Model model, BindingResult errors, RedirectAttributes redirectAttributes) {
-//    try {
-//      memberRepo.save(member);
-//      memberInfoRepo.save(memberInfo);
-//      return "redirect:/member/list";
-//    } catch (Exception e) {
-//      log.error("Error: {}", e.getMessage());
-//      redirectAttributes.addFlashAttribute("errors", e.getMessage());
-//      return "redirect:/member/form";
-//    }
-//
-//  }
   @PostMapping("register")
   public String registerMember(@Valid Member member, Errors errors, RedirectAttributes redirectAttributes) {
     if (errors.hasErrors()) {

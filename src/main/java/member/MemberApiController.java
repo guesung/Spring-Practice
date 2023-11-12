@@ -27,13 +27,11 @@ public class MemberApiController {
   @PostMapping("")
   public void addMember(@RequestBody Member memberTotal) {
     Member member = new Member();
-    member.setId(Long.parseLong("4"));
     member.setUsername(memberTotal.getUsername());
     member.setEmail(memberTotal.getEmail());
     memberRepository.save(member);
 
     MemberInfo memberInfo = new MemberInfo();
-    memberInfo.setId(Long.parseLong("4"));
     memberInfo.setJob(memberInfo.getJob());
     memberInfo.setPhoneNumber(memberInfo.getPhoneNumber());
     memberInfoRepository.save(memberInfo);

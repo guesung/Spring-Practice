@@ -1,8 +1,8 @@
 -- MemberInfo 레코드 삽입
-INSERT INTO member_info (member_info_id, phone_number, job)
-VALUES (1, '123-456-7890', '개발자');
-INSERT INTO member_info (member_info_id, phone_number, job)
-VALUES (2, '234-567-8901', '디자이너');
+INSERT INTO member_info (phone_number, job)
+VALUES ('123-456-7890', '개발자');
+INSERT INTO member_info (phone_number, job)
+VALUES ('234-567-8901', '디자이너');
 
 -- Member 레코드 삽입
 INSERT INTO member (member_id, username, email)

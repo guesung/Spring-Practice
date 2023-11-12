@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class MemberInfo {
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "member_info_id")
   private Long id;
 

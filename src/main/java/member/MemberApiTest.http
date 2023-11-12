@@ -14,9 +14,20 @@ Content-Type: application/json
 
 {
   "username": "황희정2",
-  "email": "hwgachon.ac.kr",
+  "email": "gueit214@naver.com",
   "phoneNumber": "010-1234-5678",
-  "job": "DEVELOPER"
+  "job": "개발자"
+}
+
+### 회원 등록2
+POST http://localhost:8080/api/member
+Content-Type: application/json
+
+{
+  "username": "황희정5",
+  "email": "gueit215@naver.com",
+  "phoneNumber": "010-1234-5678",
+  "job": "개발자"
 }
 
 ### 회원 수정
