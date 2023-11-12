@@ -21,9 +21,11 @@ public class MemberInfo {
   private Job job;
 
   public enum Job {
-    DEVELOPER,
-    TEACHER,
-    DOCTOR,
-    ENGINEER
+    개발자,
+    디자이너,
+    기획자,
+    마케터,
+    기타
+    
   }
 }

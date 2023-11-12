@@ -48,16 +48,27 @@ public class MemberController {
 
   @PostMapping("register")
   public String registerMember(@Valid Member member, @Valid MemberInfo memberInfo, Errors errors, RedirectAttributes redirectAttributes) {
+    redirectAttributes.addFlashAttribute("username", member.getUsername());
+    redirectAttributes.addFlashAttribute("email", member.getEmail());
+    redirectAttributes.addFlashAttribute("phoneNumber", memberInfo.getPhoneNumber());
+    redirectAttributes.addFlashAttribute("job", memberInfo.getJob());
     if (errors.hasErrors()) {
       List<FieldError> list = errors.getFieldErrors();
-      list.forEach(e -> log.error(e.getDefaultMessage()));
-      redirectAttributes.addFlashAttribute("username", member.getUsername());
-      redirectAttributes.addFlashAttribute("email", member.getEmail());
-      redirectAttributes.addFlashAttribute("phoneNumber", memberInfo.getPhoneNumber());
-      redirectAttributes.addFlashAttribute("job", memberInfo.getJob());
-      redirectAttributes.addFlashAttribute("isError", true);
+      list.forEach(e -> {
+        if (e.getField().equals("username")) {
+          redirectAttributes.addFlashAttribute("error", "이름은 2글자 이상이어야 합니다.");
+        } else if (e.getField().equals("email")) {
+          redirectAttributes.addFlashAttribute("error", "이메일 형식이 올바르지 않습니다.");
+        } else if (e.getField().equals("job")) {
+          redirectAttributes.addFlashAttribute("error", "직업은 '개발자','디자이너','기획자','마케터','기타' 중 하나여야 합니다.");
+        } else if (e.getField().equals("phoneNumber")) {
+          redirectAttributes.addFlashAttribute("error", "전화번호는 숫자만 입력해야 합니다.");
+        }
+      });
       return "redirect:/member/form";
     }
+    member.setId(Long.parseLong("5"));
+    memberInfo.setId(Long.parseLong("5"));
     memberRepo.save(member);
     memberInfoRepo.save(memberInfo);
     return "redirect:/member/list";

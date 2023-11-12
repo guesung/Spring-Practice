@@ -16,6 +16,7 @@ public class Member {
   @JoinColumn(name = "member_info_id")
   private MemberInfo memberInfo;
 
+  @
   @Column(nullable = false, unique = true)
   private String username;
 

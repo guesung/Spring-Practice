@@ -24,10 +24,9 @@
 
             <button class="btn btn-primary" style="width: 8rem" type="submit">회원 가입</button>
             <div style="height:1rem"></div>
-            <div class="card p-2" style="background-color: yellow" th:if="${isError}">
+            <div class="card p-2" style="background-color: yellow" th:if="${error}">
                 <ul>
-                    <li>이메일 형식을 따라야 합니다!</li>
-                    <li>이름은 반드시 입력 해야 합니다!!</li>
+                    <li th:text="${error}">에러 내용</li>
                 </ul>
             </div>
         </form>
