@@ -18,14 +18,11 @@ public class Member {
   @JoinColumn(name = "member_info_id")
   private MemberInfo memberInfo;
 
-  @NotBlank(message = "이름을 입력해주세요.")
-  @Email(message = "이름 형식이 올바르지 않습니다.")
-  @Column(nullable = false, unique = true)
+  @NotBlank(message = "이름은 반드시 입력 해야 합니다!!")
   private String username;
 
-  @NotBlank(message = "이메일을 입력해주세요.")
-  @Email(message = "이메일 형식이 올바르지 않습니다.")
-  @Column(nullable = false, unique = true)
+  @NotBlank(message = "이메일은 반드시 입력 해야 합니다!!")
+  @Email(message = "이메일 형식을 따라야 합니다!!")
   private String email;
 }
 

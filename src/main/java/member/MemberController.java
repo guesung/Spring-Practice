@@ -11,6 +11,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller // 컨트롤러임을 선언
@@ -46,33 +47,35 @@ public class MemberController {
     return "member/member_info";
   }
 
+  //  @PostMapping("register")
+//  public String registerMember(@Valid Member member, @Valid MemberInfo memberInfo, Model model, BindingResult errors, RedirectAttributes redirectAttributes) {
+//    try {
+//      memberRepo.save(member);
+//      memberInfoRepo.save(memberInfo);
+//      return "redirect:/member/list";
+//    } catch (Exception e) {
+//      log.error("Error: {}", e.getMessage());
+//      redirectAttributes.addFlashAttribute("errors", e.getMessage());
+//      return "redirect:/member/form";
+//    }
+//
+//  }
   @PostMapping("register")
-  public String registerMember(@Valid Member member, @Valid MemberInfo memberInfo, Errors errors, RedirectAttributes redirectAttributes) {
-    redirectAttributes.addFlashAttribute("username", member.getUsername());
-    redirectAttributes.addFlashAttribute("email", member.getEmail());
-    redirectAttributes.addFlashAttribute("phoneNumber", memberInfo.getPhoneNumber());
-    redirectAttributes.addFlashAttribute("job", memberInfo.getJob());
+  public String registerMember(@Valid Member member, Errors errors, RedirectAttributes redirectAttributes) {
     if (errors.hasErrors()) {
       List<FieldError> list = errors.getFieldErrors();
-      list.forEach(e -> {
-        if (e.getField().equals("username")) {
-          redirectAttributes.addFlashAttribute("error", "이름은 2글자 이상이어야 합니다.");
-        } else if (e.getField().equals("email")) {
-          redirectAttributes.addFlashAttribute("error", "이메일 형식이 올바르지 않습니다.");
-        } else if (e.getField().equals("job")) {
-          redirectAttributes.addFlashAttribute("error", "직업은 '개발자','디자이너','기획자','마케터','기타' 중 하나여야 합니다.");
-        } else if (e.getField().equals("phoneNumber")) {
-          redirectAttributes.addFlashAttribute("error", "전화번호는 숫자만 입력해야 합니다.");
-        }
-      });
+      List<String> errorMessageList = new ArrayList<String>();
+
+      list.forEach(e -> errorMessageList.add(e.getDefaultMessage()));
+      redirectAttributes.addFlashAttribute("username", member.getUsername());
+      redirectAttributes.addFlashAttribute("email", member.getEmail());
+      redirectAttributes.addFlashAttribute("errors", errorMessageList);
       return "redirect:/member/form";
     }
-    member.setId(Long.parseLong("5"));
-    memberInfo.setId(Long.parseLong("5"));
     memberRepo.save(member);
-    memberInfoRepo.save(memberInfo);
     return "redirect:/member/list";
   }
+
 
   @RequestMapping("delete/{id}")
   public String deleteMember(@PathVariable long id) {

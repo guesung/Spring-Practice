@@ -13,18 +13,19 @@
             <br/>
             <input aria-describedby="addon-wrapping" aria-label="Email" class="form-control" name="email"
                    placeholder="이메일을 입력 하세요" th:value="${email}" type="text">
-            <br/><input aria-describedby="addon-wrapping" aria-label="PhoneNumber" class="form-control"
-                        name="phoneNumber"
-                        placeholder="휴대전화를 입력 하세요" th:value="${phoneNumber}" type="text">
             <br/>
+            <!--            <input aria-describedby="addon-wrapping" aria-label="PhoneNumber" class="form-control"-->
+            <!--                        name="phoneNumber"-->
+            <!--                        placeholder="휴대전화를 입력 하세요" th:value="${phoneNumber}" type="text">-->
+            <!--            <br/>-->
 
-            <input aria-describedby="addon-wrapping" aria-label="Job" class="form-control" name="job"
-                   placeholder="직업을 입력 하세요" th:value="${job}" type="text">
-            <br/>
+            <!--            <input aria-describedby="addon-wrapping" aria-label="Job" class="form-control" name="job"-->
+            <!--                   placeholder="직업을 입력 하세요" th:value="${job}" type="text">-->
+            <!--            <br/>-->
 
             <button class="btn btn-primary" style="width: 8rem" type="submit">회원 가입</button>
             <div style="height:1rem"></div>
-            <div class="card p-2" style="background-color: yellow" th:if="${error}">
+            <div class="card p-2" style="background-color: yellow" th:each="error : ${errors}">
                 <ul>
                     <li th:text="${error}">에러 내용</li>
                 </ul>
