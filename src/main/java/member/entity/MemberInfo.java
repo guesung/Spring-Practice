@@ -21,14 +21,7 @@ public class MemberInfo {
 
   @Column(name = "job")
   @Enumerated(EnumType.STRING)
-  private Job job;
+  private JobEnum job;
 
-  public enum Job {
-    개발자,
-    디자이너,
-    기획자,
-    마케터,
-    기타
 
-  }
 }
