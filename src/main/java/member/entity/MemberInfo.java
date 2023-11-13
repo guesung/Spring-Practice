@@ -1,27 +1,28 @@
 package member.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Entity
+@Getter
+@AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Builder
+@ToString
+@Entity
 public class MemberInfo {
+
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "member_info_id")
+  @Column(name = "id")
   private Long id;
 
-  @OneToOne(mappedBy = "memberInfo")
-  private Member member; // Link to the Member entity
+  private String phoneNumber;
 
-  @Column(name = "phone_number")
-  private String phoneNumber; // A unique number for the member
-
-  @Column(name = "job")
   @Enumerated(EnumType.STRING)
   private JobEnum job;
 
-
+  @OneToOne
+  @MapsId
+  @Setter
+  @JoinColumn(name = "member_id")
+  private Member member;
 }

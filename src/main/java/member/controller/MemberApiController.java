@@ -5,11 +5,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import member.MemberApiException;
 import member.MemberApiStatus;
+import member.dto.MemberDto;
 import member.entity.Member;
 import member.entity.MemberInfo;
 import member.repository.MemberInfoRepository;
 import member.repository.MemberRepository;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/member")
@@ -20,8 +24,13 @@ public class MemberApiController {
   private final MemberInfoRepository memberInfoRepository;
 
   @GetMapping("")
-  public Iterable<Member> getAllMember() {
-    return memberRepository.findAll();
+  public Iterable<MemberDto> getAllMember() {
+    Iterable<Member> members = memberRepository.findAll();
+    List<MemberDto> memberDtoList = new ArrayList<>();
+    for (Member member : members) {
+      memberDtoList.add(MemberDto.of(member));
+    }
+    return memberDtoList;
   }
 
   @GetMapping("{id}")
@@ -33,13 +42,9 @@ public class MemberApiController {
   @PostMapping("")
   public void addMember(@RequestBody Member memberTotal) {
     Member member = new Member();
-    member.setUsername(memberTotal.getUsername());
-    member.setEmail(memberTotal.getEmail());
     memberRepository.save(member);
 
     MemberInfo memberInfo = new MemberInfo();
-    memberInfo.setJob(memberInfo.getJob());
-    memberInfo.setPhoneNumber(memberInfo.getPhoneNumber());
     memberInfoRepository.save(memberInfo);
   }
 
@@ -52,13 +57,9 @@ public class MemberApiController {
   @PutMapping("{id}")
   public void updateMemberInfo(@PathVariable long id, @RequestBody Member memberTotal) {
     Member member = memberRepository.findById(id).orElseThrow(() -> new MemberApiException(MemberApiStatus.MEMBER_NOT_FOUND));
-    member.setUsername(memberTotal.getUsername());
-    member.setEmail(memberTotal.getEmail());
     memberRepository.save(member);
 
     MemberInfo memberInfo = memberInfoRepository.findById(id).orElseThrow(() -> new MemberApiException(MemberApiStatus.MEMBER_NOT_FOUND));
-    memberInfo.setJob(memberInfo.getJob());
-    memberInfo.setPhoneNumber(memberInfo.getPhoneNumber());
     memberInfoRepository.save(memberInfo);
   }
 }

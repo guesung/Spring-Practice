@@ -1,30 +1,33 @@
 package member.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+@Getter
+@Builder
+@ToString
 @Entity
 @NoArgsConstructor
-@Data
+@AllArgsConstructor
 public class Member {
+
+  //Primary Key
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "member_id", nullable = false, unique = true)
+  @Column(name = "id")
   private Long id;
 
-  @OneToOne
-  @JoinColumn(name = "member_info_id")
-  private MemberInfo memberInfo;
-
-  @Column(nullable = false, unique = true)
-  private String username;
+  private String name;
 
   private String email;
 
-  public void setMemberInfo(MemberInfo memberInfo) {
-    this.memberInfo = memberInfo;
-    memberInfo.setMember(this);
+  @OneToOne(cascade = CascadeType.ALL, mappedBy = "member")
+  @PrimaryKeyJoinColumn
+  private MemberInfo memberInfo;
+
+  public Member(String name, String email) {
+    this.name = name;
+    this.email = email;
   }
 }
 

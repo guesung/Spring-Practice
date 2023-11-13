@@ -1,11 +1,9 @@
--- MemberInfo 레코드 삽입
-INSERT INTO member_info (phone_number, job)
-VALUES ('123-456-7890', '개발자');
-INSERT INTO member_info (phone_number, job)
-VALUES ('234-567-8901', '디자이너');
+-- 멤버 (Member) 테이블에 샘플 데이터 삽입
+INSERT INTO member (name, email)
+VALUES ('Test1', 'Test1@gachon.ac.kr'),
+       ('Test2', 'Test2@gachon.ac.kr');
 
--- Member 레코드 삽입
-INSERT INTO member (member_id, username, email)
-VALUES (1, 'user1', 'user1@example.com');
-INSERT INTO member (member_id, username, email)
-VALUES (2, 'user2', 'user2@example.com');
+-- 멤버 정보 (MemberInfo) 테이블에 샘플 데이터 삽입
+INSERT INTO member_info (phone_number, job, member_id)
+VALUES ('010-1234-5678', 'STUDENT', 1), -- 1번 멤버의 정보
+       ('010-9876-5432', 'FREELANCER', 2); -- 2번 멤버의 정보
