@@ -1,9 +1,12 @@
-package member;
+package member.controller;
 
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import member.entity.Member;
+import member.repository.MemberInfoRepository;
+import member.repository.MemberRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;

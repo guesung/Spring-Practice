@@ -1,8 +1,14 @@
-package member;
+package member.controller;
 
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import member.MemberApiException;
+import member.MemberApiStatus;
+import member.entity.Member;
+import member.entity.MemberInfo;
+import member.repository.MemberInfoRepository;
+import member.repository.MemberRepository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

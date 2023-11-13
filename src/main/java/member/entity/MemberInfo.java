@@ -1,4 +1,4 @@
-package member;
+package member.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

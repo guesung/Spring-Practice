@@ -2,6 +2,10 @@ package member;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import member.entity.Member;
+import member.entity.MemberInfo;
+import member.repository.MemberInfoRepository;
+import member.repository.MemberRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;
