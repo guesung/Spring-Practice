@@ -4,12 +4,15 @@ package member.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import member.dto.MemberDto;
+import member.entity.JobEnum;
 import member.entity.Member;
+import member.entity.MemberInfo;
 import member.repository.MemberInfoRepository;
 import member.repository.MemberRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -39,6 +42,7 @@ public class MemberController {
 
   @GetMapping("form")
   public String addMember(Model model) {
+    model.addAttribute("jobs", JobEnum.values());
     return "member/member_form";
   }
 
@@ -51,21 +55,33 @@ public class MemberController {
   }
 
   @PostMapping("register")
-  public String registerMember(@Valid Member member, Errors errors, RedirectAttributes redirectAttributes) {
+  public String signUp(@ModelAttribute @Valid MemberDto memberDto, BindingResult errors, Model model, RedirectAttributes redirectAttributes) {
     if (errors.hasErrors()) {
       List<FieldError> list = errors.getFieldErrors();
-      List<String> errorMessageList = new ArrayList<String>();
-
+      List<String> errorMessageList = new ArrayList<>();
       list.forEach(e -> errorMessageList.add(e.getDefaultMessage()));
-      redirectAttributes.addFlashAttribute("username", member.getUsername());
-      redirectAttributes.addFlashAttribute("email", member.getEmail());
+      System.out.println(errorMessageList);
+      redirectAttributes.addFlashAttribute("username", memberDto.getUsername());
+      redirectAttributes.addFlashAttribute("email", memberDto.getEmail());
       redirectAttributes.addFlashAttribute("errors", errorMessageList);
-      return "redirect:/member/form";
-    }
-    memberRepo.save(member);
-    return "redirect:/member/list";
-  }
 
+      return "redirect:/member/form";
+    } else {
+      Member member = Member.builder()
+          .username(memberDto.getUsername())
+          .email(memberDto.getEmail())
+          .build();
+
+      MemberInfo memberInfo = MemberInfo.builder()
+          .phoneNumber(memberDto.getPhoneNumber())
+          .job(memberDto.getJob())
+          .member(member)
+          .build();
+
+      memberInfoRepo.save(memberInfo);
+      return "redirect:/member/list";
+    }
+  }
 
   @RequestMapping("delete/{id}")
   public String deleteMember(@PathVariable long id) {

@@ -13,7 +13,7 @@
                 <h5 class="card-title" th:text="${member.getUsername()}">이름</h5>
                 <p class="card-text" th:text="${member.getEmail()}">이메일</p>
                 <p class="card-text" th:text="${memberInfo.getPhoneNumber()}">휴대전하 번호</p>
-                <p class="card-text" th:text="${memberInfo.getJob()}">직업</p>
+                <p class="card-text" th:text="${memberInfo.getJob().getLabel()}">직업</p>
             </div>
         </div>
 
