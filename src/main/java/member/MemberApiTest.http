@@ -16,7 +16,7 @@ Content-Type: application/json
   "username": "황희정2",
   "email": "gueit214@naver.com",
   "phoneNumber": "010-1234-5678",
-  "job": "개발자"
+  "job": "STUDENT"
 }
 
 ### 회원 등록2

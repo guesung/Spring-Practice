@@ -1,5 +1,5 @@
 -- 멤버 (Member) 테이블에 샘플 데이터 삽입
-INSERT INTO member (name, email)
+INSERT INTO member (username, email)
 VALUES ('Test1', 'Test1@gachon.ac.kr'),
        ('Test2', 'Test2@gachon.ac.kr');
 

@@ -1,6 +1,7 @@
 package member.controller;
 
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import member.MemberApiException;
@@ -10,10 +11,15 @@ import member.entity.Member;
 import member.entity.MemberInfo;
 import member.repository.MemberInfoRepository;
 import member.repository.MemberRepository;
+import org.apache.tomcat.util.buf.StringUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/member")
@@ -34,25 +40,52 @@ public class MemberApiController {
   }
 
   @GetMapping("{id}")
-  public Member getMember(@PathVariable long id) {
-    return memberRepository.findById(id).orElseThrow(() -> new MemberApiException(MemberApiStatus.MEMBER_NOT_FOUND));
-  }
-
-
-  @PostMapping("")
-  public void addMember(@RequestBody Member memberTotal) {
-    Member member = new Member();
-    memberRepository.save(member);
-
-    MemberInfo memberInfo = new MemberInfo();
-    memberInfoRepository.save(memberInfo);
+  public MemberDto getMember(@PathVariable long id) {
+    Member member = memberRepository.findById(id).orElseThrow(() -> new MemberApiException(MemberApiStatus.MEMBER_NOT_FOUND));
+    return MemberDto.of(member);
   }
 
   @DeleteMapping("{id}")
-  public void deleteMemberInfo(@PathVariable long id) {
-    memberRepository.deleteById(id);
-    memberInfoRepository.deleteById(id);
+  public void deleteMember(@PathVariable Long id) {
+    Optional<Member> MemberOpt = memberRepository.findById(id);
+    if (MemberOpt.isPresent()) {
+      Member member = MemberOpt.get();
+      memberRepository.delete(member);
+    } else {
+      throw new MemberApiException(MemberApiStatus.MEMBER_NOT_FOUND);
+    }
   }
+
+  @PostMapping(value = "")
+  public ResponseEntity<MemberDto> addMember(@Valid @RequestBody MemberDto memberDto, BindingResult result) {
+    insertMember(memberDto, result);
+    return new ResponseEntity<>(memberDto, HttpStatus.CREATED);
+  }
+
+  private void insertMember(@Valid MemberDto memberDto, BindingResult result) {
+    List<String> msgs = new ArrayList<>();
+    if (result.hasErrors()) {
+      result.getAllErrors().forEach(oe -> msgs.add(oe.getDefaultMessage()));
+      throw new MemberApiException(MemberApiStatus.VALIDATION_ERROR, StringUtils.join(msgs, ','));
+    } else {
+      Member member = Member.builder()
+          .id(memberDto.getId() != null ? memberDto.getId() : null)
+          .username(memberDto.getUsername())
+          .email(memberDto.getEmail())
+          .build();
+
+      MemberInfo memberInfo = MemberInfo.builder()
+          .id(memberDto.getId() != null ? memberDto.getId() : null)
+          .phoneNumber(memberDto.getPhoneNumber())
+          .job(memberDto.getJob())
+          .member(member)
+          .build();
+
+      memberInfoRepository.save(memberInfo);
+      memberRepository.save(member);
+    }
+  }
+
 
   @PutMapping("{id}")
   public void updateMemberInfo(@PathVariable long id, @RequestBody Member memberTotal) {

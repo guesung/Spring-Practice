@@ -26,7 +26,7 @@ public class MemberDto {
   private JobEnum job;
 
   public static MemberDto of(Member member) {
-    return new MemberDto(member.getId(), member.getName(), member.getEmail(), member.getMemberInfo().getPhoneNumber(), member.getMemberInfo().getJob());
+    return new MemberDto(member.getId(), member.getUsername(), member.getEmail(), member.getMemberInfo().getPhoneNumber(), member.getMemberInfo().getJob());
   }
 }
 

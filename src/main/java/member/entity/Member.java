@@ -17,7 +17,7 @@ public class Member {
   @Column(name = "id")
   private Long id;
 
-  private String name;
+  private String username;
 
   private String email;
 
@@ -25,8 +25,8 @@ public class Member {
   @PrimaryKeyJoinColumn
   private MemberInfo memberInfo;
 
-  public Member(String name, String email) {
-    this.name = name;
+  public Member(String username, String email) {
+    this.username = username;
     this.email = email;
   }
 }

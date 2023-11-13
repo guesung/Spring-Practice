@@ -57,7 +57,7 @@ public class MemberController {
       List<String> errorMessageList = new ArrayList<String>();
 
       list.forEach(e -> errorMessageList.add(e.getDefaultMessage()));
-      redirectAttributes.addFlashAttribute("username", member.getName());
+      redirectAttributes.addFlashAttribute("username", member.getUsername());
       redirectAttributes.addFlashAttribute("email", member.getEmail());
       redirectAttributes.addFlashAttribute("errors", errorMessageList);
       return "redirect:/member/form";
