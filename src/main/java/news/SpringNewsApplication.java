@@ -1,13 +1,13 @@
-package com.demo;
+package news;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JspSpringApplication {
+public class SpringNewsApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(JspSpringApplication.class, args);
+    SpringApplication.run(SpringNewsApplication.class, args);
   }
 
 }
